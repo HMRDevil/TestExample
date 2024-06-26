@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+    <h1>Create new User</h1>
+
+    {% include '/user/notice.html.twig' %}
+
+    <form method="post" action="{{ path('new_user') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('create') }}">
+        <label>Email
+            <input type="email" name="email" required value="">
+        </label>
+        <label>Name
+            <input type="text" name="name" required value="">
+        </label>
+        <label>Sex
+            <select name="sex" required>
+                {% for sex in sexOptions %}
+                    <option value="{{ sex }}">{{ sex }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Phone
+            <input type="tel" name="phone" required value="">
+        </label>
+        <label>Birthday
+            <input type="date" name="birthday" required value="">
+        </label>
+        <button class="btn">Create</button>
+    </form>
+
+
+    <a href="{{ path('all_users') }}">back to list</a>
+{% endblock %}

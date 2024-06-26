@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Edit User</h1>
+
+    {% include '/user/notice.html.twig' %}
+
+    <form method="post" action="{{ path('update_user') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('update') }}">
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <label>Email
+            <input type="email" name="email" required value="{{user.email}}">
+        </label>
+        <label>Name
+            <input type="text" name="name" required value="{{user.name}}">
+        </label>
+        <label>Sex
+            <select name="sex" required>
+                {% for sex in sexOptions %}
+                <option {% if user.sex == sex %}selected{% endif%} value="{{ sex }}">{{ sex }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Phone
+            <input type="tel" name="phone" required value="{{user.phone}}">
+        </label>
+
+        <button class="btn">Update</button>
+    </form>
+
+
+    <a href="{{ path('all_users') }}">back to list</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}
